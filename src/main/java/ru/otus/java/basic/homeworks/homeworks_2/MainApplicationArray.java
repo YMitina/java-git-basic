@@ -10,14 +10,15 @@ public class MainApplicationArray {
 
         System.out.println("\nЗадача №2");
         int[] arrIn = {10, 15, 1, 25, 100, 40, 2, 4, 3, 3};
-        printArray(arrIn);
+        printSumMoreFiveArray(arrIn);
 
         System.out.println("\nЗадача №3");
         int[] intArray = new int[5];
         fillOutArray(5, intArray);
 
         System.out.println("\nЗадача №4");
-        increaseArray(10, intArray);
+        int[] arr = {1,8,9};
+        increaseArray(10, arr);
 
         System.out.println("\nЗадача №5");
         halfMoreArray(arrIn);
@@ -29,8 +30,11 @@ public class MainApplicationArray {
         sumArray(arrOne, arrTwo, arrThree);
 
         System.out.println("\nЗадача №3*");
+        System.out.println("Введите 1 - если хотите произвести проверку элементов массива на убывание, 2 - на возрастание ");
+        Scanner scanner = new Scanner(System.in);
+        int typeCheck = scanner.nextInt();
         int[] checkArr = {10, 5, 1};
-        checkValueArray(checkArr);
+        checkValueArray(typeCheck, checkArr);
 
         System.out.println("\nЗадача №4*");
         int[] converselyArr = {11, 66, 77, 99};
@@ -46,7 +50,7 @@ public class MainApplicationArray {
     }
 
     //2
-    public static void printArray(int[] intArray) {
+    public static void printSumMoreFiveArray(int[] intArray) {
         int sum = 0;
         for (int i = 0; i < intArray.length; i++) {
             if (intArray[i] > 5) {
@@ -58,7 +62,7 @@ public class MainApplicationArray {
 
     //3
     public static void fillOutArray(int number, int... intArray) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < intArray.length; i++) {
             intArray[i] = number;
             System.out.println("intArray[" + i + "]=" + intArray[i]);
         }
@@ -66,12 +70,11 @@ public class MainApplicationArray {
     }
 
     //4
-    public static void increaseArray(int number, int... intArray) {
-        intArray[0] = number;
-        for (int i = 1; i < 5; i++) {
-            intArray[i] = intArray[i - 1] + number;
+    public static void increaseArray(int number, int[] Arr) {
+        for (int i = 0; i < Arr.length; i++) {
+            Arr[i] += number;
         }
-        System.out.println(Arrays.toString(intArray));
+        System.out.println(Arrays.toString(Arr));
     }
 
     //5
@@ -125,10 +128,7 @@ public class MainApplicationArray {
 
     //3*
     //********************************************************************************
-    public static void checkValueArray(int[] intArray) {
-        System.out.println("Введите 1 - если хотите произвести проверку элементов массива на убывание, 2 - на возрастание ");
-        Scanner scanner = new Scanner(System.in);
-        int typeCheck = scanner.nextInt();
+    public static void checkValueArray(int  typeCheck, int[] intArray) {
         boolean check = true;
         for (int i = 0; i < intArray.length - 1; i++) {
             if (typeCheck == 1) {
@@ -157,15 +157,29 @@ public class MainApplicationArray {
 
     //4*
     //********************************************************************************
+//    public static void converselyArray(int[] inArray) {
+//        int lengthInArr = inArray.length;
+//        int[] outArray = new int[lengthInArr];
+//        for (int i = 0, j = lengthInArr - 1; i < inArray.length; i++, j--) {
+//            outArray[j] = inArray[i];
+//        }
+//        System.out.print("Исходный массив:");
+//        System.out.println(Arrays.toString(inArray));
+//        System.out.print("Перевернутый массив:");
+//        System.out.println(Arrays.toString(outArray));
+//    }
     public static void converselyArray(int[] inArray) {
-        int lengthInArr = inArray.length;
-        int[] outArray = new int[lengthInArr];
-        for (int i = 0, j = lengthInArr - 1; i < inArray.length; i++, j--) {
-            outArray[j] = inArray[i];
-        }
         System.out.print("Исходный массив:");
         System.out.println(Arrays.toString(inArray));
-        System.out.print("Перевернутый массив:");
-        System.out.println(Arrays.toString(outArray));
+        System.out.println("Перевернутый массив:");
+        System.out.print("[");
+        for (int i = inArray.length-1; i>= 0; i--) {
+            System.out.print(inArray[i]);
+            if (i != 0){
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+
     }
 }
