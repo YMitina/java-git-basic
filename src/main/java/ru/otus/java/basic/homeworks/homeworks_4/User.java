@@ -15,12 +15,12 @@ public class User {
        this.email = email;
    }
    public void printInfoUser(){
-       System.out.println("ФИО: " + this.surname + " " + this.name + " "+ this.patronymic);
-       System.out.println("Год рождения: " + this.yearOfBirth);
-       System.out.println("e-mail: " + this.email);
+       System.out.println("ФИО: " + surname + " " + name + " "+ patronymic);
+       System.out.println("Год рождения: " + yearOfBirth);
+       System.out.println("e-mail: " + email);
    }
    public int getYearOfBirth(){
-       return this.yearOfBirth;
+       return yearOfBirth;
    }
 
 }
