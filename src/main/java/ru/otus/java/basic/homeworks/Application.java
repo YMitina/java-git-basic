@@ -8,18 +8,18 @@ public class Application {
         Cat[] arrCat = {new Cat("Korgik", 30),
                 new Cat("Barsik", 80),
                 new Cat("Kompot", 20)};
-        for (int i = 0; i < arrCat.length; i++) {
-            if (plate.dropFood(arrCat[i].getAppetite())) {
-                arrCat[i].setFullness(true);
-                System.out.println(arrCat[i].getName() + " покушал!");
+        for (Cat cat : arrCat) {
+            if (plate.dropFood(cat.getAppetite())) {
+                cat.setFullness(true);
+                System.out.println(cat.getName() + " покушал!");
             } else {
-                System.out.println(arrCat[i].getName() + " остался голодным!");
+                System.out.println(cat.getName() + " остался голодным!");
             }
         }
         System.out.println();
         System.out.println("Состояние котов:");
-        for (int i = 0; i < arrCat.length; i++) {
-            arrCat[i].info();
+        for (Cat cat : arrCat) {
+            cat.info();
         }
 
         System.out.println();
