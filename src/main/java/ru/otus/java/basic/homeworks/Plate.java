@@ -1,8 +1,8 @@
 package ru.otus.java.basic.homeworks;
 
 public class Plate {
-    int maxAmountFood;
-    int currentAmountFood;
+    private int maxAmountFood;
+    private int currentAmountFood;
 
     public Plate(int maxAmountFood) {
         this.maxAmountFood = maxAmountFood;
