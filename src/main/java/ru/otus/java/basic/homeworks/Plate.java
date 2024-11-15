@@ -23,7 +23,7 @@ public class Plate {
     }
 
     protected boolean dropFood(int amountFood) {
-        if (currentAmountFood - amountFood >= 0) {
+        if (currentAmountFood >= amountFood) {
             currentAmountFood -= amountFood;
             return true;
         }
