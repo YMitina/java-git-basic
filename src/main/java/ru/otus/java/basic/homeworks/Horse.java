@@ -15,46 +15,24 @@ public class Horse implements Transport {
         System.out.println("Пройденная дистанция  " + currentDistance + " километров.");
     }
 
-    public boolean ride(Human human, Application.TerrainType terrainType, float distance) {
-        if (human == null) {
-            System.out.println("Не возможно идентифицировать личность, прогулка на лошадке не возможна!");
-            return false;
+    public boolean ride(Application.TerrainType terrainType, float distance) {
+        Application.TerrainType[] impassableAreas;
+        impassableAreas = new Application.TerrainType[]{Application.TerrainType.SWAMP};
+        for (Application.TerrainType impassableArea : impassableAreas) {
+            if (terrainType == impassableArea) {
+                System.out.println("Лошадка не может перемещаться по типу местности " + terrainType.getRusName() + " !");
+                return false;
+            }
         }
-        if (human.getCurrentTransport() == null) {
-            System.out.println("Человек не сел на лошадку. Он идет пешком " + distance + " километров! ");
-            human.setCurrentDistance(distance);
-            return false;
-        } else if (!(human.getCurrentTransport() instanceof Horse)) {
-            System.out.println("Человек находится в другом транспорте, перемещение на лошадке не возможно!");
-            return false;
-        }
-        if (distance <= 0) {
-            System.out.println("Дистанция должна иметь положительное значение!");
-            return false;
-        }
+
         if (power < distance) {
             System.out.println("У лощадке не хватает сил на " + distance + " километров! Вы можете проехать не более " + power + " километров!");
             return false;
         }
 
-        if (terrainType == Application.TerrainType.FOREST) {
-            System.out.println(human.getName() + " проскакал на лошадке по лесу расcтояние " + distance + " километров! ");
-            power -= distance;
-
-        } else if (terrainType == Application.TerrainType.SWAMP) {
-            System.out.println("Лошадка не может катать по болоту! ");
-            return false;
-
-        } else if (terrainType == Application.TerrainType.PLAIN) {
-            System.out.println(human.getName() + " проскакал на лошадке по равнине расстояние " + distance + " километров! ");
-            power -= distance;
-
-        } else {
-            System.out.println("Задан неизвестный тип местности, перемещение на лошадки не возможно!");
-            return false;
-        }
+        System.out.println("Лошадка проскакала по типу местности " + terrainType.getRusName() + " на растояние " + distance + " километров! ");
+        power -= distance;
         currentDistance += distance;
-        human.setCurrentDistance(distance);
         return true;
     }
 

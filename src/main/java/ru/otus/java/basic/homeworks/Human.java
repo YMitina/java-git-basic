@@ -1,5 +1,7 @@
 package ru.otus.java.basic.homeworks;
 
+import ru.otus.java.basic.homeworks.Application.TerrainType;
+
 public class Human {
     private String name;
     private Transport currentTransport;
@@ -7,9 +9,8 @@ public class Human {
     private float currentPower;
 
 
-    public Human(String name, Transport currentTransport, float currentDistance, float currentPower) {
+    public Human(String name, float currentDistance, float currentPower) {
         this.name = name;
-        this.currentTransport = currentTransport;
         this.currentDistance = currentDistance;
         this.currentPower = currentPower;
     }
@@ -30,7 +31,7 @@ public class Human {
         return currentTransport;
     }
 
-    public void setCurrentDistance(float currentDistance) {
+    public void increaseCurrentDistance(float currentDistance) {
         this.currentDistance += currentDistance;
     }
 
@@ -38,7 +39,7 @@ public class Human {
         return currentDistance;
     }
 
-    public void setCurrentPower(float currentPower) {
+    public void decreaseCurrentPower(float currentPower) {
         this.currentPower -= currentPower;
     }
 
@@ -48,5 +49,35 @@ public class Human {
 
     public void currentInfo() {
         System.out.println(name + " с начала прогулки преодолел дистанцию " + currentDistance + " километров. Его сила составляет " + currentPower + " единиц.");
+    }
+
+    public void ride(TerrainType terrainType, float distance) {
+        if (distance <= 0) {
+            System.out.println("Дистанция должна иметь положительное значение!");
+            return;
+        }
+        if (currentTransport == null) {
+            if (distance > currentPower) {
+                System.out.println("Недостаточно сил для прогулки пешком! Он может пройти расстояние не более " + currentPower + " километров");
+                return;
+            } else {
+                System.out.println(name + " идет пешком " + distance + " километров по типу местности " + terrainType.getRusName());
+                decreaseCurrentPower(distance);
+                increaseCurrentDistance(distance);
+            }
+        } else {
+            if (currentTransport.getClass().getSimpleName().equals("Bicycle")) {
+                if (distance > currentPower) {
+                    System.out.println("Недостаточно сил для поездки на веслосипеде по типу местности " + terrainType.getRusName() + ", слишком большая дистанция в " + distance + " киллометров! Хватит только на растояние " + currentPower + " киломметров!");
+                    return;
+                }
+            }
+            if (currentTransport.ride(terrainType, distance)) {
+                if (currentTransport.getClass().getSimpleName().equals("Bicycle")) {
+                    decreaseCurrentPower(distance);
+                }
+                increaseCurrentDistance(distance);
+            }
+        }
     }
 }
