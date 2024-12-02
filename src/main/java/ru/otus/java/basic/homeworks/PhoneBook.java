@@ -1,47 +1,34 @@
 package ru.otus.java.basic.homeworks;
 
 import java.util.Objects;
+import java.util.TreeSet;
 
 public class PhoneBook {
-    private String phone;
-    private String name;
 
-    public PhoneBook(String phone, String name) {
-        this.phone = phone;
-        this.name = name;
+    static void add(TreeSet<RecordPhoneBook> phoneBookTreeSet, String phone, String name) {
+        phoneBookTreeSet.add(new RecordPhoneBook(phone, name));
     }
 
-    public String getPhone() {
-        return phone;
+    static void find(TreeSet<RecordPhoneBook> phoneBookTreeSet, String name) {
+        boolean flagIsFind = false;
+        for (RecordPhoneBook phoneBook : phoneBookTreeSet) {
+            if (phoneBook.getName().equals(name)) {
+                System.out.println(phoneBook.getPhone());
+                flagIsFind = true;
+            }
+        }
+        if (!flagIsFind) {
+            System.out.println("ОТСУТСТВУЮТ");
+        }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void getPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        PhoneBook phoneBook = (PhoneBook) o;
-        return Objects.equals(name, this.name) && Objects.equals(phone, this.phone);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(phone, name);
-    }
-    public String toString(String phone, String name) {
-        return "PhoneBook{" +
-                "phone=" + phone +
-                ", name='" + name + '\'' +
-                '}';
+    static boolean containsPhoneNumber(TreeSet<RecordPhoneBook> phoneBookTreeSet, String phone) {
+        for (RecordPhoneBook phoneBook : phoneBookTreeSet) {
+            if (phoneBook.getPhone().equals(phone)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
