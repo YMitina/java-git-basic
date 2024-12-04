@@ -30,7 +30,7 @@ public class RecordPhoneBook {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         RecordPhoneBook phoneBook = (RecordPhoneBook) o;
-        return Objects.equals(name, this.name) && Objects.equals(phone, this.phone);
+        return true;
     }
 
     @Override

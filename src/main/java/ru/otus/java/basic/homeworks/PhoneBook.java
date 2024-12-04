@@ -1,34 +1,45 @@
 package ru.otus.java.basic.homeworks;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.TreeSet;
 
 public class PhoneBook {
+    private TreeSet<RecordPhoneBook> phoneBookTreeSet;
 
-    static void add(TreeSet<RecordPhoneBook> phoneBookTreeSet, String phone, String name) {
+    public PhoneBook(TreeSet<RecordPhoneBook> phoneBookTreeSet) {
+        this.phoneBookTreeSet = phoneBookTreeSet;
+    }
+
+    void add(String phone, String name) {
         phoneBookTreeSet.add(new RecordPhoneBook(phone, name));
     }
 
-    static void find(TreeSet<RecordPhoneBook> phoneBookTreeSet, String name) {
-        boolean flagIsFind = false;
+    ArrayList<String> find(String name) {
+
+        ArrayList<String> listPhone = new ArrayList<>();
         for (RecordPhoneBook phoneBook : phoneBookTreeSet) {
             if (phoneBook.getName().equals(name)) {
-                System.out.println(phoneBook.getPhone());
-                flagIsFind = true;
+                listPhone.add(phoneBook.getPhone());
             }
         }
-        if (!flagIsFind) {
-            System.out.println("ОТСУТСТВУЮТ");
-        }
+        return listPhone;
     }
 
-    static boolean containsPhoneNumber(TreeSet<RecordPhoneBook> phoneBookTreeSet, String phone) {
-        for (RecordPhoneBook phoneBook : phoneBookTreeSet) {
+    boolean containsPhoneNumber(String phone) {
+        for (RecordPhoneBook phoneBook : this.phoneBookTreeSet) {
             if (phoneBook.getPhone().equals(phone)) {
                 return true;
             }
         }
         return false;
+    }
+
+    void print() {
+        for (RecordPhoneBook phoneBook : phoneBookTreeSet) {
+            System.out.println("номер телефона: " + phoneBook.getPhone() + "    ФИО: " + phoneBook.getName());
+        }
     }
 
 }
