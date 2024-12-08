@@ -7,24 +7,23 @@ import static ru.otus.java.basic.homeworks.PhoneBook.*;
 public class Application {
     public static void main(String[] args) {
 
-        Comparator<RecordPhoneBook> phoneComparator = Comparator.comparing(RecordPhoneBook::getPhone);
-        TreeSet<RecordPhoneBook> phoneBookTreeSet = new TreeSet<>(phoneComparator);
-        phoneBookTreeSet.add(new RecordPhoneBook("8 950 806 88 89", "ИВАНОВ ИВАН ИВАНОВИЧ"));
-        phoneBookTreeSet.add(new RecordPhoneBook("8 950 806 88 88", "ИВАНОВ ИВАН ИВАНОВИЧ"));
-        phoneBookTreeSet.add(new RecordPhoneBook("8 950 805 77 77", "ПЕТРОВ ПЕТР ПЕТРОВИЧ"));
-        phoneBookTreeSet.add(new RecordPhoneBook("8 508 054 44 84", "СИДОРОВ СИДОР СИДОВИЧ"));
+        PhoneBook phoneBook = new PhoneBook();
 
+        phoneBook.add("ИВАНОВ ИВАН ИВАНОВИЧ", "8 950 806 88 89");
+        phoneBook.add("ИВАНОВ ИВАН ИВАНОВИЧ", "8 950 806 88 88");
+        phoneBook.add("ПЕТРОВ ПЕТР ПЕТРОВИЧ", "8 950 805 77 77");
+        phoneBook.add("СИДОРОВ СИДОР СИДОВИЧ", "8 508 054 44 84");
 
-        PhoneBook phoneBook = new PhoneBook(phoneBookTreeSet);
         System.out.println("Исходная телефонная книга:");
+
         phoneBook.print();
-        System.out.println();
 
         /**
          * Добавление нового контакта
          */
-        phoneBook.add("8 950 805 99 99", "КРЫЛОВ ИВАН ИВАНОВИЧ");
-        System.out.println("Телефонная книга после добавления нового контакта:");
+        phoneBook.add("КРЫЛОВ ИВАН ИВАНОВИЧ", "8 950 805 99 99");
+        phoneBook.add("ИВАНОВ ИВАН ИВАНОВИЧ", "8 950 805 55 55");
+        System.out.println("Телефонная книга после добавления новых контактов:");
         phoneBook.print();
 
         /**
@@ -34,15 +33,14 @@ public class Application {
         String findName = "ИВАНОВ ИВАН ИВАНОВИЧ";
         System.out.println("Поиск контакта:");
         System.out.println(findName);
-        System.out.println("Найденные номера: ");
-        ArrayList<String> listPhone = phoneBook.find(findName);
-        System.out.println(listPhone);
+        System.out.println("Найденные номера: " + phoneBook.find(findName));
+
 
         /**
          * Проверка наличия номера в телефоной книге
          */
         System.out.println();
-        String findPhone = "8 950 805 77 77";
+        String findPhone = "8 950 805 99 99";
         System.out.println("Номер телефона " + findPhone + (phoneBook.containsPhoneNumber(findPhone) ? " найден!" : " не найден!"));
     }
 
