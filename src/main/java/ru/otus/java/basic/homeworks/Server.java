@@ -23,9 +23,6 @@ public class Server {
             Socket client = socket.accept();
             DataInputStream inputStream = new DataInputStream(client.getInputStream());
             DataOutputStream outputStream = new DataOutputStream(client.getOutputStream());
-            System.out.println("Клиент с портом :" + client.getPort() + " подключился!");
-            ClientHandler clientHandler = new ClientHandler(client, inputStream, outputStream);
-            clientHandlers.add(clientHandler);
             String userInput = inputStream.readUTF();
             if (userInput.equals("exit")) {
                 System.out.println("Клиент с портом :" + client.getPort() + " отключился!");
@@ -33,16 +30,15 @@ public class Server {
                 continue;
             }
             System.out.println(userInput);
-            System.out.println("client.getPort() = " + client.getPort());
 
-            String resultOut = Calc(userInput);
+            String resultOut = сalc(userInput);
             outputStream.writeUTF(resultOut);
             outputStream.flush();
             System.out.println("result = " + resultOut);
         }
     }
 
-    private static String Calc(String userInput) {
+    private static String сalc(String userInput) {
         String[] words;
         try {
             words = userInput.split(",");
