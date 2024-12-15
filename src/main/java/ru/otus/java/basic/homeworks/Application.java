@@ -1,15 +1,10 @@
 package ru.otus.java.basic.homeworks;
 
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-
 public class Application {
     public static void main(String[] args) throws InterruptedException {
         double arr[] = new double[100_000_000];
         Array array = new Array();
-
+        long time = System.currentTimeMillis();
         Thread t1 = new Thread(() -> {
             array.filling(arr, 0, 25_000_000, 1);
         });
@@ -30,6 +25,13 @@ public class Application {
         t2.start();
         t3.start();
         t4.start();
+
+        t1.join();
+        t2.join();
+        t3.join();
+        t4.join();
+
+        System.out.println("Время выполнения в 4-х потоках: " + (System.currentTimeMillis() - time));
 
     }
 
