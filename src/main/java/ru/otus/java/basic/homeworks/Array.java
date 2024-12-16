@@ -10,9 +10,9 @@ public class Array {
     }
 
     public static void main(String[] args) {
-        long time = System.currentTimeMillis();
         Array array = new Array();
         double arr[] = new double[100_000_000];
+        long time = System.currentTimeMillis();
         array.filling(arr, 0, 100_000_000, 0);
         System.out.println("Время выполнения в одном потоке: " + (System.currentTimeMillis() - time));
     }
