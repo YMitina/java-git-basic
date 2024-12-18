@@ -2,9 +2,9 @@ package ru.otus.java.basic.homeworks;
 
 
 public class Person {
-    String name;
-    Post position;
-    Long id;
+    private String name;
+    private Post position;
+    private Long id;
 
 
     public Person(String name, Long id) {
@@ -16,9 +16,12 @@ public class Person {
     public Long getId() {
         return id;
     }
+    public Post getPosition() {
+        return position;
+    }
 
-    public void print() {
-        System.out.println("ФИО: " + name + ", Должность: " + position + ", Табельный номер: " + id);
+    public String toString() {
+        return  "ФИО: " + name + ", Должность: " + position + ", Табельный номер: " + id;
     }
 
 }

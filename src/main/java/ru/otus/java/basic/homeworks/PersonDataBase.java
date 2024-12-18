@@ -20,11 +20,11 @@ public class PersonDataBase {
     }
 
     public boolean isManager(Person person) {
-        return person.position.isManager();
+        return person.getPosition().isManager();
     }
 
     public boolean isEmployee(Person person) {
-        return !person.position.isManager();
+        return !person.getPosition().isManager();
     }
 
 

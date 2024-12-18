@@ -13,26 +13,27 @@ public class Application {
         personDataBase.add(new Person("Козлов Петр Петрович", 14L));
         System.out.println("Сотрудники:");
         for (Person persons : personDataBase.mapPerson.values()) {
-            persons.print();
+            System.out.println(persons.toString());
         }
         System.out.println("");
         System.out.println("Сотрудник с табельным номером 11:");
-        personDataBase.findById(11L).print();
+        personDataBase.findById(11L).toString();
         System.out.println("");
         System.out.println("Менеджеры:");
         for (Person persons : personDataBase.mapPerson.values()) {
             if (personDataBase.isManager(persons)) {
-                persons.print();
+                System.out.println(persons.toString());
             }
         }
         System.out.println("");
         System.out.println("Оставшиеся сотрудники(не менеджеры):");
         for (Person persons : personDataBase.mapPerson.values()) {
             if (personDataBase.isEmployee(persons)) {
-                persons.print();
+                System.out.println(persons.toString());
             }
         }
 
+        System.out.println("");
         int [] arr = new int[] {5,6,7,1,9};
         System.out.println("Массив до сортировки: " + Arrays.toString(arr));
         SortArray.sort(arr);
