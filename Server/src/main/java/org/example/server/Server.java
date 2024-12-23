@@ -39,17 +39,19 @@ public class Server {
     }
 
     public void broadcastMessage(String message) {
-        String[] userMessage = message.split(" ", 3);
-        String[] wordsMessage = userMessage[2].split(" ", 3);
+        for (ClientHandler c : clients) {
+            c.sendMsg(message);
+        }
+    }
+
+    public void personalMessage(String userSender, String message) {
+        String[] wordsMessage = message.split(" ", 3);
         for (ClientHandler c : clients) {
             if (wordsMessage[0].equals("/w") && wordsMessage.length == 3) {
-                if (c.getUsername().equals(wordsMessage[1]) || c.getUsername().equals(userMessage[0])) {
-                    c.sendMsg(userMessage[0] + " : " + wordsMessage[2]);
+                if (c.getUsername().equals(wordsMessage[1]) || c.getUsername().equals(userSender)) {
+                    c.sendMsg(userSender + " : " + wordsMessage[2]);
                 }
-            } else {
-                c.sendMsg(message);
             }
-
         }
     }
 }

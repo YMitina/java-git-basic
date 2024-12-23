@@ -31,12 +31,12 @@ public class ClientHandler {
 
                 while (true) {
                     String message = in.readUTF();
-                    if (message.startsWith("/")) {
+                    if (message.startsWith("/w")) {
+                        server.personalMessage(username, message);
+                    } else if (message.startsWith("/")) {
                         if (message.equalsIgnoreCase("/exit")) {
                             sendMsg("/exitok");
                             break;
-                        } else {
-                            server.broadcastMessage(username + " : " + message);
                         }
                     } else {
                         server.broadcastMessage(username + " : " + message);

@@ -22,11 +22,9 @@ public class Client {
             try {
                 while (true) {
                     String message = in.readUTF();
-                    if (message.startsWith("/")) {
+                    if (message.startsWith("/") && !message.startsWith("/w")) {
                         if (message.equalsIgnoreCase("/exitok")) {
                             break;
-                        } else {
-                            System.out.println(message);
                         }
                     } else {
                         System.out.println(message);
