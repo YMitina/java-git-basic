@@ -11,6 +11,7 @@ public class Client {
     private DataOutputStream out;
     private DataInputStream in;
     private Scanner scanner;
+    static boolean flag = true;
 
     public Client() throws IOException {
         scanner = new Scanner(System.in);
@@ -23,12 +24,26 @@ public class Client {
                 while (true) {
                     String message = in.readUTF();
                     if (message.startsWith("/") && !message.startsWith("/w")) {
-                        if (message.equalsIgnoreCase("/exitok")) {
+                        if (message.equalsIgnoreCase("/exitok") ) {
                             break;
                         }
+                        if (message.startsWith("/kickok")) {
+                            flag = false;
+                            break;
+                        }
+                        if (message.startsWith("/authok ")) {
+                            System.out.println("Удалось успешно войти в чат с именем пользователя "
+                                    + message.split(" ")[1]);
+                        }
+                        if (message.startsWith("/regok ")) {
+                            System.out.println("Удалось успешно зарегистрироваться с именем пользователя "
+                                    + message.split(" ")[1]);
+                        }
+
                     } else {
                         System.out.println(message);
                     }
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -38,10 +53,14 @@ public class Client {
         }).start();
 
         while (true) {
-            String message = scanner.nextLine();
-            out.writeUTF(message);
-            if (message.equalsIgnoreCase("/exit")) {
+            if (!flag) {
                 break;
+            } else {
+                String message = scanner.nextLine();
+                out.writeUTF(message);
+                if (message.equalsIgnoreCase("/exit")) {
+                    break;
+                }
             }
         }
     }
