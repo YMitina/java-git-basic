@@ -8,9 +8,7 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
 
     private Server server;
     private Connection connection;
-    private Statement statement;
 
-    //
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USERS_QUERY = "select uc.username from public.users_chat uc where uc.login = ? and uc.\"password\" = ?";
     private static final String ROLE_ID_QUERY = "select rc.role_id from public.roles_chat rc where rc.title = ? ";
