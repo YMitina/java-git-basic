@@ -1,13 +1,14 @@
 package ru.otus.java.basic.homeworks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Box<T extends Fruit> {
-    private ArrayList<T> fruits;
+    private List<T> fruitsList;
     private int weight;
 
     public Box() {
-        this.fruits = new ArrayList<T>();
+        this.fruitsList = new ArrayList<T>();
     }
 
     public int getWeight() {
@@ -15,25 +16,29 @@ public class Box<T extends Fruit> {
     }
 
     public void add(T fruit) {
-        fruits.add(fruit);
-        weight += fruit.getWeight();
+        fruitsList.add(fruit);
+        weight += fruit.weight;
+
     }
 
-    public boolean compare(Box<? extends Fruit> box) {
+    public int compare(Box<?> box) {
+        return Math.abs(this.weight - box.weight);
 
-        if (Math.abs(this.weight - box.weight) < 0.0000001) {
-            return true;
-        }
-        return false;
     }
 
-    public void fill(Box<? extends Fruit> box) {
-        for (Fruit f : box.fruits) {
+    public void fill(Box<? extends T> box) {
+        for (Fruit f : box.fruitsList) {
             this.add((T) f);
         }
-
-        box.fruits.clear();
-        box.weight = 0;
+       box.fruitsList.clear();
+       box.weight = 0;
+    }
+    public void fill2(Box<? super T> box) {
+        for (Fruit f : this.fruitsList) {
+            box.add((T)f);
+        }
+        this.fruitsList.clear();
+        this.weight = 0;
     }
 
 
