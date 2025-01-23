@@ -7,32 +7,35 @@ public class Application {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < 5; i++) {
                 try {
-                    p.printA();
+                    p.printCharacter('A', 1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    p.printCharacter('B',2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        Thread t3 = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    p.printCharacter('C',0);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
         t1.start();
-        Thread t2 = new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                try {
-                    p.printB();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
         t2.start();
-        Thread t3 = new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                try {
-                    p.printC();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
         t3.start();
+        t1.join();
+        t2.join();
+        t3.join();
     }
 }
