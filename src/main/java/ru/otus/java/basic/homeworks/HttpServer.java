@@ -1,0 +1,50 @@
+package ru.otus.java.basic.homeworks;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class HttpServer {
+    private int port;
+    private Dispatcher dispatcher;
+    private ExecutorService serv;
+
+    public HttpServer(int port) {
+        this.port = port;
+        this.dispatcher = new Dispatcher();
+        this.serv = Executors.newFixedThreadPool(5);
+    }
+
+    public void start() throws IOException {
+
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Сервер запущен на порту: " + port);
+            while (!serverSocket.isClosed()) {
+                Socket socket = serverSocket.accept();
+                serv.execute(() -> {
+                            byte[] buffer = new byte[8192];
+                            try {
+                                int n = socket.getInputStream().read(buffer);
+                                System.out.println("Подключился новый клиент");
+                                HttpRequest request = new HttpRequest(new String(buffer, 0, n));
+                                request.info(true);
+                                dispatcher.execute(request, socket.getOutputStream());
+                                socket.close();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            serv.shutdown();
+        } finally {
+            serv.shutdown();
+        }
+    }
+}
+
+
