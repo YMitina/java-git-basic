@@ -16,7 +16,6 @@ public class HttpServer {
         this.dispatcher = new Dispatcher();
         this.serv = Executors.newFixedThreadPool(5);
     }
-
     public void start() throws IOException {
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -31,9 +30,14 @@ public class HttpServer {
                                 HttpRequest request = new HttpRequest(new String(buffer, 0, n));
                                 request.info(true);
                                 dispatcher.execute(request, socket.getOutputStream());
-                                socket.close();
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
+                            } finally {
+                                try {
+                                    socket.close();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
                         }
                 );
