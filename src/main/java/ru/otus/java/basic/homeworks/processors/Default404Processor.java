@@ -13,7 +13,10 @@ public class Default404Processor implements RequestProcessor {
                 "HTTP/1.1 404 Not Found\r\n" +
                 "Content-Type: text/html\r\n" +
                 "\r\n" +
-                "<html><body><h1>Page Not Found</h1></body></html>";
+                "<html><body>" +
+               "<h1>"+"FOOL" +"</h1>"+
+                "<img src=\"image2.png\" ></body></html>";
         output.write(response.getBytes(StandardCharsets.UTF_8));
+        System.out.println(response);
     }
 }

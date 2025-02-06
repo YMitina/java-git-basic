@@ -34,8 +34,7 @@ public class ProductsService {
     }
 
     public void deleteAllProducts() {
-        // products.removeAll(this.products);
-        this.products.clear();
+        products.removeAll(this.products);
         LOGGER.info("Удаляем всё");
     }
 
@@ -43,4 +42,9 @@ public class ProductsService {
         products.remove(products.stream().filter(p -> p.getId().equals(id)).findFirst().get());
         LOGGER.info("Удалили с id=" + id);
     }
+    public void updateProductById(Long id, String title) {
+        products.stream().filter(p -> p.getId().equals(id)).findFirst().get().setTitle(title);
+        LOGGER.info("Изменили с id=" + id);
+    }
+
 }
